@@ -1,8 +1,10 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, createMemoryHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+const isClient = typeof window !== 'undefined'
+
+const routes = {
+  history: isClient ? createWebHistory(import.meta.env.BASE_URL) : createMemoryHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -18,6 +20,8 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     }
   ]
-})
+}
+
+const router = createRouter(routes)
 
 export default router
