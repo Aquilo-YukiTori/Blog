@@ -25,6 +25,11 @@ jobs:
         run: |
           pnpm install 
           pnpm build
+          
+      - name: set up ssh keys
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Clear remote directory
         run: ssh -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} "rm -rf /home/webroot/*"
