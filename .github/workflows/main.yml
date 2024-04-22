@@ -27,11 +27,11 @@ jobs:
           pnpm build
 
       - name: Clear remote directory
-        run: ssh -i ${{ secrets.SSH_PRIVATE_KEY }} -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} "rm -rf /home/webroot/*"
+        run: ssh -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} "rm -rf /home/webroot/*"
 
       - name: copy files to remote server
         run: |
-          scp -i ${{ secrets.SSH_PRIVATE_KEY }} -P ${{ secrets.SERVER_PORT }} -r out/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/home/webroot/
+          scp -P ${{ secrets.SERVER_PORT }} -r out/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/home/webroot/
         env:
           SSH_AUTH_SOCK: /dev/null
 
