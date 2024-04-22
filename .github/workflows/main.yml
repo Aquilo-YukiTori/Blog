@@ -33,7 +33,7 @@ jobs:
 
       - name: SSH into server and clear directory
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} 'rm -rf /home/webroot/*'
+          ssh -o StrictHostKeyChecking=no -P ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} 'rm -rf /home/webroot/*'
 
       - name: Copy files to server
         run: |
