@@ -31,14 +31,13 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Clear remote directory
-        run: ssh -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} "rm -rf /home/webroot/*"
-
-      - name: copy files to remote server
+      - name: SSH into server and clear directory
         run: |
-          scp -P ${{ secrets.SERVER_PORT }} -r out/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/home/webroot/
-        env:
-          SSH_AUTH_SOCK: /dev/null
+          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} 'rm -rf /home/webroot/*'
+
+      - name: Copy files to server
+        run: |
+          scp -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} -r /out/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/home/webroot/
 
       # - name: Copy files to remote server
       #   uses: appleboy/scp-action@master
