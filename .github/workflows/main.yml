@@ -37,7 +37,7 @@ jobs:
 
       - name: Copy files to server
         run: |
-          scp -o StrictHostKeyChecking=no -P ${{ secrets.SERVER_PORT }} -r /out/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/home/webroot/
+          scp -o StrictHostKeyChecking=no -P ${{ secrets.SERVER_PORT }} -r out/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/home/webroot/
 
       # - name: Copy files to remote server
       #   uses: appleboy/scp-action@master
